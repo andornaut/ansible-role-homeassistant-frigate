@@ -1,0 +1,63 @@
+---
+- name: Get group ids
+  getent:
+    database: group
+
+- name: Start Home Assistant Docker containers
+  vars:
+    required_volumes:
+      - "{{ homeassistantfrigate_required_volumes.config }}:/config"
+      - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
+    frigate_volumes:
+      - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
+      - "{{ homeassistantfrigate_frigate_required_volumes.config }}:/config:ro"
+      - "{{ homeassistantfrigate_frigate_required_volumes.media }}:/media/frigate"
+    frigate_tmpfs_volume:
+      type: tmpfs # Optional ram-drive to reduce storage wear
+      target: /tmp/cache
+      tmpfs:
+        size: "{{ homeassistantfrigate_frigate_tmpfs_size_mb * 1000000 }}"
+  docker_compose:
+    project_name: homeassistant
+    pull: yes
+    recreate: always
+    definition:
+      version: "2.4" # "group_add" works in v2.4 or v3.9
+      services:
+        homeassistant:
+          container_name: homeassistant
+          image: "{{ homeassistantfrigate_docker_image }}"
+          # `network_mode: host` is required by the Google Cast integration:
+          # https://www.home-assistant.io/integrations/cast/#home-assistant-container
+          network_mode: host 
+          restart: unless-stopped
+          volumes: "{{ required_volumes + homeassistantfrigate_extra_volumes }}"
+        frigate:
+          container_name: frigate
+          image: "{{ homeassistantfrigate_frigate_docker_image }}"
+          devices:
+            - /dev/bus/usb:/dev/bus/usb # For Coral.ai
+            - /dev/dri/card0
+            - /dev/dri/renderD128 # For hwaccel
+          environment: 
+            "{{ homeassistantfrigate_frigate_env }}"
+          group_add:
+            - "{{ getent_group.render[1] }}"
+            - "{{ getent_group.video[1] }}"
+          ports:
+            - "{{ homeassistantfrigate_frigate_port }}:5000"
+            - "{{ homeassistantfrigate_frigate_rtsp_port }}:1935"
+          restart: unless-stopped
+          shm_size: "{{ homeassistantfrigate_frigate_shm_size }}"
+          volumes: "{{ frigate_volumes + ([frigate_tmpfs_volume] if homeassistantfrigate_frigate_tmpfs_size_mb > 0 else []) }}"
+        mosquitto:
+          container_name: mosquitto
+          image: "{{ homeassistantfrigate_mosquitto_docker_image }}"
+          ports:
+            - "{{ homeassistantfrigate_mosquitto_port }}:1883"
+          restart: unless-stopped
+          volumes:
+            - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
+            - "{{ homeassistantfrigate_mosquitto_required_volumes.config }}:/mosquitto/config:ro"
+            - "{{ homeassistantfrigate_mosquitto_required_volumes.data }}:/mosquitto/data"
+            - "{{ homeassistantfrigate_mosquitto_required_volumes.log }}:/mosquitto/log"

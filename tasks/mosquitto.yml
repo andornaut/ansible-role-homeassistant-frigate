@@ -1,0 +1,6 @@
+---
+- name: Copy mosquitto.conf
+  copy:
+    src: mosquitto/mosquitto.conf
+    dest: "{{ homeassistantfrigate_frigate_required_volumes.config }}/"
+  become: true

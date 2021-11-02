@@ -1,0 +1,74 @@
+default_config:
+envisalink:
+  host: !secret envisalink_host
+  panel_type: DSC
+  user_name: !secret envisalink_username
+  password: !secret envisalink_password
+  code: !secret envisalink_code
+  evl_version: 4
+  partitions:
+    1:
+      name: 'Home Alarm'
+ffmpeg:
+frontend:
+  themes: !include_dir_merge_named themes
+homeassistant:
+  currency: CAD
+  elevation: !secret homeassistant_elevation # meters
+  internal_url: !secret homeassistant_internal_url
+  latitude: !secret zone_latitude # up/down
+  longitude: !secret zone_longitude # left/right
+  name: !secret homeassistant_name
+  time_zone: !secret homeassistant_time_zone
+  unit_system: metric
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+logger:
+  default: info
+#  logs:
+#    homeassistant.components.roomba: debug
+#    roombapy: debug
+#lovelace:
+  ## Customize in ./ui-lovelace.yaml
+  #mode: yaml
+  #resources:
+  # - url: /local/frigate-hass-card.js
+  #   type: module
+mqtt:
+  broker: !secret mqtt_broker
+neato:
+    client_id: !secret neato_client_id
+    client_secret: !secret neato_client_secret
+notify:
+- name: mobile_apps
+  platform: group
+  services:
+    - service: mobile_app_iphone11pro
+    - service: mobile_app_iphone13
+    - service: mobile_app_pixel2xl
+python_script:
+sensor:
+  - platform: time_date
+    display_options:
+      - 'date_time'
+stream:
+tts:
+  - platform: google_translate
+weather:
+  - platform: environment_canada
+zone:
+  - name: Home
+    icon: mdi:home
+    latitude: !secret zone_latitude # up/down
+    longitude: !secret zone_longitude # left/right
+    radius: !secret zone_radius # meters
+
+automation: !include automations.yaml
+group: !include groups.yaml
+light: !include lights.yaml
+scene: !include scenes.yaml
+script: !include scripts.yaml

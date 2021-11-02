@@ -1,0 +1,38 @@
+---
+- name: Create custom_components/ directory
+  file:
+    path: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+    state: directory
+    owner: root
+    group: root
+  become: true
+
+- name: Download Frigate custom component
+  ansible.builtin.git:
+    repo: https://github.com/blakeblackshear/frigate-hass-integration
+    dest: /tmp/ansible-role-homeassistant-frigate/frigate
+    depth: 1
+
+- name: Install Frigate custom component
+  copy:
+    src: /tmp/ansible-role-homeassistant-frigate/frigate/custom_components/frigate
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+  become: true
+
+- name: Download Meross custom component
+  ansible.builtin.git:
+    repo: https://github.com/albertogeniola/meross-homeassistant
+    dest: /tmp/ansible-role-homeassistant-frigate/meross
+    depth: 1
+
+- name: Install Meross custom component
+  copy:
+    src: /tmp/ansible-role-homeassistant-frigate/meross/custom_components/meross_cloud
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+  become: true
+
+- name: Copy python_scripts/ directory
+  copy:
+    src: homeassistant/python_scripts/
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/python_scripts/"
+  become: true
