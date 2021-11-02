@@ -137,6 +137,7 @@ docker exec -ti homeassistant \
 * [Frigate notifications bluepring](https://community.home-assistant.io/t/frigate-mobile-app-notifications/311091)
 * [Home Assistant automation trigger variables](https://www.home-assistant.io/docs/automation/templating/)
 * [Home Assistant script syntax](https://www.home-assistant.io/docs/scripts/)
+* [IBM1970 theme](https://github.com/andornaut/homeassistant-ibm1970-theme)
 * [Material icons](https://materialdesignicons.com/) - Customize Home Assistant icons. Prefix with "mdi:".
 * [Slider Entity Row card](https://github.com/thomasloven/lovelace-slider-entity-row)
 
