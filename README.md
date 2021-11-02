@@ -103,7 +103,7 @@ ffmpeg:
 [ansible-role-letsencrypt-nginx](https://github.com/andornaut/ansible-role-letsencrypt-nginx) variables:
 
 ```
-# Given:t
+# Given:
 #homeassistant_port: 8080
 #homeassistant_frigate_port: 8081
 
