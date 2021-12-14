@@ -21,6 +21,6 @@
 
 - name: Install Slider Entry Row card
   get_url:
-    url: https://github.com/thomasloven/lovelace-slider-entity-row/blob/master/slider-entity-row.js
+    url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
