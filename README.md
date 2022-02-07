@@ -129,8 +129,11 @@ docker exec -ti homeassistant \
 
 ### Upgrade, downgrade or pin a component's dependencies
 
+Eg. Pin [pyenvisalink](https://github.com/Cinntax/pyenvisalink)
+to version 4.0 to workaround
+[this issue](https://github.com/home-assistant/core/issues/65762#issuecomment-1030872475).
+
 ```
-# Eg. Pin pyenvisalink to version 4.0
 docker exec -ti homeassistant \
     bash -c "find /usr/src/homeassistant/ \
     -name 'requirements*.txt' -or -name manifest.json \
