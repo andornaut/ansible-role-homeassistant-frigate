@@ -125,6 +125,19 @@ docker exec -ti homeassistant \
     bash -c 'wget -O - https://get.hacs.xyz | bash -'
 ```
 
+## Troubleshooting
+
+### Upgrade, downgrade or pin a component's dependencies
+
+```
+# Eg. Pin pyenvisalink to version 4.0
+docker exec -ti homeassistant \
+    bash -c "find /usr/src/homeassistant/ \
+    -name 'requirements*.txt' -or -name manifest.json \
+    | xargs grep -l pyenvisalink \
+    | xargs sed -i 's/pyenvisalink==[a-zA-Z0-9.]\+/pyenvisalink==4.0/g'"
+```
+
 ## Links
 
 * [BurningStone91's smart home setup](https://github.com/Burningstone91/smart-home-setup/)
