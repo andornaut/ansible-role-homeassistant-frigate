@@ -1,37 +1,51 @@
-# Source: https://github.com/xannor/hass_py_set_state/blob/master/python_scripts/set_state.py
-#==================================================================================================
-#  python_scripts/set_state.py 
-#  modified from - https://community.home-assistant.io/t/how-to-manually-set-state-value-of-sensor/43975/37
-#==================================================================================================
+def set_state(entity_id, state, attributes, allow_create):
+    """
+    Set the state or other attributes of an entity
 
-#--------------------------------------------------------------------------------------------------
-# Set the state or other attributes for the entity specified in the Automation Action
-#--------------------------------------------------------------------------------------------------
+    Inspired by:
+    https://github.com/xannor/hass_py_set_state/blob/master/python_scripts/set_state.py
+    https://community.home-assistant.io/t/how-to-manually-set-state-value-of-sensor/43975/37
+    """
+    if not entity_id:
+        logger.warning('An "entity_id" is required')
+        return
 
-inputEntity = data.get('entity_id')
-if inputEntity is None:
-    logger.warning("===== entity_id is required if you want to set something.")
-else:    
-    inputStateObject = hass.states.get(inputEntity)
-    if inputStateObject is None and not data.get('allow_create'):
-        logger.warning("===== unknown entity_id: %s", inputEntity)
+    entity = hass.states.get(entity_id)
+    if entity:
+        old_attributes = entity.attributes.copy()
+        old_attributes.update(attributes)
+        attributes = old_attributes
+        state = state or entity.state
     else:
-        if not inputStateObject is None:
-            inputState = inputStateObject.state
-            inputAttributesObject = inputStateObject.attributes.copy()
-        else:
-            inputAttributesObject = {}
-    
-        for item in data:
-            newAttribute = data.get(item)
-            logger.debug("===== item = {0}; value = {1}".format(item,newAttribute))
-            if item == 'entity_id':
-                continue            # already handled
-            elif item == 'allow_create':
-                continue            # already handled
-            elif item == 'state':
-                inputState = newAttribute
-            else:
-                inputAttributesObject[item] = newAttribute
-            
-        hass.states.set(inputEntity, inputState, inputAttributesObject)
+        if not allow_create:
+            logger.warning(
+                'Cannot find an entity with id:%s. Set "allow_create" to allow an entity to be created',
+                entity_id,
+            )
+            return
+        if not state:
+            logger.warning(
+                'Cannot find an entity with id:%s and cannot create one either, because "state" is empty',
+                entity_id,
+            )
+            return
+        logger.debug(
+            "Creating a new entity with id:%s, because one didn't exist and allow_create is True",
+            entity_id,
+        )
+
+    logger.info(
+        "Updating entity:%s with state:%s and attributes:%s",
+        entity_id,
+        state,
+        attributes,
+    )
+    hass.states.set(entity_id, state, attributes)
+
+
+EXCLUDED_KEYS = {"allow_create", "entity_id", "state"}
+entity_id = data.get("entity_id")
+state = data.get("state")
+attributes = {k: v for k, v in data.items() if k not in EXCLUDED_KEYS}
+allow_create = bool(data.get("allow_create"))
+set_state(entity_id, state, attributes, allow_create)
