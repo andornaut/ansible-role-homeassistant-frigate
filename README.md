@@ -150,7 +150,7 @@ docker exec -ti homeassistant \
 * [Frigate](https://github.com/blakeblackshear/frigate) - NVR with realtime local object detection for IP cameras
 * [Frigate lovelace card](https://github.com/dermotduffy/frigate-hass-card)
 * [Frigate machine learning accelerator by Coral](https://coral.ai/products/)
-* [Frigate notifications bluepring](https://community.home-assistant.io/t/frigate-mobile-app-notifications/311091)
+* [Frigate mobile app notifications blueprint](https://community.home-assistant.io/t/frigate-mobile-app-notifications/311091)
 * [Home Assistant automation trigger variables](https://www.home-assistant.io/docs/automation/templating/)
 * [Home Assistant script syntax](https://www.home-assistant.io/docs/scripts/)
 * [IBM1970 theme](https://github.com/andornaut/homeassistant-ibm1970-theme)

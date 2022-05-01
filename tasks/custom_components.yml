@@ -8,10 +8,11 @@
   become: true
 
 - name: Download Frigate custom component
-  ansible.builtin.git:
+  git:
     repo: https://github.com/blakeblackshear/frigate-hass-integration
     dest: /tmp/ansible-role-homeassistant-frigate/frigate
     depth: 1
+    force: yes
 
 - name: Install Frigate custom component
   copy:
@@ -20,10 +21,11 @@
   become: true
 
 - name: Download Meross custom component
-  ansible.builtin.git:
+  git:
     repo: https://github.com/albertogeniola/meross-homeassistant
     dest: /tmp/ansible-role-homeassistant-frigate/meross
     depth: 1
+    force: yes
 
 - name: Install Meross custom component
   copy:
