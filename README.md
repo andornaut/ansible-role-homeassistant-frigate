@@ -142,7 +142,7 @@ The reauthorization flow may trigger this error:
 
 > The redirect uri included is not valid.
 
-If that occurs, then ensure that the "Redirect URI" of the "applicaiton" configured in
+If that occurs, then ensure that the "Redirect URI" of the "application" configured in
 [the Neato developers portal](https://developers.neatorobotics.com/applications)
 points to `https://my.home-assistant.io/redirect/oauth`,
 and ensure that [https://my.home-assistant.io/](https://my.home-assistant.io/)
