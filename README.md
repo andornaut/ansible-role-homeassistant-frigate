@@ -80,8 +80,10 @@ docker exec frigate bash -c \
     'ffmpeg -hwaccel qsv -qsv_device /dev/dri/renderD128 -i $(find /media/frigate -iname '*.mp4' -print -quit 2>/dev/null) /tmp/output.mp4'
 
 # Monitor GPU usage
-sudo apt install intel-gpu-tools
+sudo apt install intel-gpu-tools radeontop
+
 sudo intel_gpu_top
+sudo radeontop
 ```
 
 ##### Common
