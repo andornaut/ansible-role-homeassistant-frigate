@@ -1,12 +1,12 @@
 ---
-homeassistantfrigate_docker_image: homeassistant/home-assistant:latest
+homeassistantfrigate_docker_image: "homeassistant/home-assistant:latest"
 homeassistantfrigate_extra_volumes: []
 homeassistantfrigate_port: 8123
 homeassistantfrigate_required_volumes:
   config: /var/docker-volumes/home-assistant/config
   localtime: /etc/localtime
 
-homeassistantfrigate_frigate_docker_image: blakeblackshear/frigate:stable-amd64
+homeassistantfrigate_frigate_docker_image: "blakeblackshear/frigate:stable-amd64"
 homeassistantfrigate_frigate_env:
   LIBVA_DRIVER_NAME: ''
 homeassistantfrigate_frigate_port: 5000
