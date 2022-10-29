@@ -173,6 +173,33 @@ docker exec -ti homeassistant \
     | xargs sed -i 's/pyenvisalink==[a-zA-Z0-9.]\+/pyenvisalink==4.0/g'"
 ```
 
+### Coral.ai doesn't work
+
+* [Failed to load delegate from libedgetpu.so.1.0](https://github.com/blakeblackshear/frigate/issues/3259)
+
+`docker logs frigate` shows an error:
+
+> ValueError: Failed to load delegate from libedgetpu.so.1.0
+
+Try rebooting the host OS or restarting the Docker container.
+
+When debugging, note that when a Coral.ai USB adpater is first connected its manufacturer is listed as "Global Unichip Corp",
+[but then it changes](https://github.com/google-coral/edgetpu/issues/536) to "Google Inc." after its first inference, so look for both manufacturer names: `lsusb | grep -E 'Global|Google'`
+
+Excerpt from dmesg:
+```
+[  303.677695] usb 3-2: new high-speed USB device number 22 using xhci_hcd
+[  303.827453] usb 3-2: New USB device found, idVendor=1a6e, idProduct=089a, bcdDevice= 1.00
+[  303.827457] usb 3-2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[  334.017843] usb 3-2: reset high-speed USB device number 22 using xhci_hcd
+[  336.329848] usb 3-2: reset high-speed USB device number 22 using xhci_hcd
+[  336.478836] usb 3-2: device firmware changed
+[  336.478857] usb 3-2: USB disconnect, device number 22
+[  336.606068] usb 3-2: new high-speed USB device number 23 using xhci_hcd
+[  336.755606] usb 3-2: New USB device found, idVendor=18d1, idProduct=9302, bcdDevice= 1.00
+[  336.755611] usb 3-2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+```
+
 ## Links
 
 * [BurningStone91's smart home setup](https://github.com/Burningstone91/smart-home-setup/)

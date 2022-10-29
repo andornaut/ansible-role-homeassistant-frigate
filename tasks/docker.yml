@@ -36,7 +36,7 @@
           container_name: frigate
           image: "{{ homeassistantfrigate_frigate_docker_image }}"
           devices:
-            - /dev/bus/usb:/dev/bus/usb # For Coral.ai
+            - /dev/bus/usb # For Coral.ai
             - /dev/dri/card0
             - /dev/dri/renderD128 # For hwaccel
           environment: 
