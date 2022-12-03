@@ -229,6 +229,8 @@ Excerpt from dmesg:
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
 * [Meross / Refoss](https://github.com/albertogeniola/meross-homeassistant)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
+* [Roborock](https://www.home-assistant.io/integrations/roborock/)
+  * [Xiaomi-cloud-tokens-extractor](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)
 * [Roomba](https://www.home-assistant.io/integrations/roomba/)
   * [SDK](https://github.com/koalazak/dorita980)
 * [Ruckus Unleashed](https://www.home-assistant.io/integrations/denonavr/)
