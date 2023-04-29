@@ -7,9 +7,22 @@
     group: root
   become: true
 
+- name: Download BambuLab custom component
+  git:
+    repo: 'https://github.com/greghesp/ha-bambulab'
+    dest: /tmp/ansible-role-homeassistant-frigate/bambu_lab
+    depth: 1
+    force: yes
+
+- name: Install BambuLab custom component
+  copy:
+    src: /tmp/ansible-role-homeassistant-frigate/bambu_lab/custom_components/bambu_lab
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+  become: true
+
 - name: Download Frigate custom component
   git:
-    repo: https://github.com/blakeblackshear/frigate-hass-integration
+    repo: 'https://github.com/blakeblackshear/frigate-hass-integration'
     dest: /tmp/ansible-role-homeassistant-frigate/frigate
     depth: 1
     force: yes
@@ -22,7 +35,7 @@
 
 - name: Download Meross custom component
   git:
-    repo: https://github.com/albertogeniola/meross-homeassistant
+    repo: 'https://github.com/albertogeniola/meross-homeassistant'
     dest: /tmp/ansible-role-homeassistant-frigate/meross
     depth: 1
     force: yes

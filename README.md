@@ -219,6 +219,7 @@ Excerpt from dmesg:
 ### Integrations
 
 * [Amcrest](https://www.home-assistant.io/integrations/amcrest/)
+* [BambuLab](https://github.com/greghesp/ha-bambulab)
 * [Denon AVR](https://www.home-assistant.io/integrations/denonavr/)
 * [Ecobee](https://www.home-assistant.io/integrations/ecobee/)
 * [Elgato Light](https://www.home-assistant.io/integrations/elgato/)
