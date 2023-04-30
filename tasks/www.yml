@@ -19,6 +19,12 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
 
+- name: Install Layout Card plugin
+  get_url:
+    url: https://raw.githubusercontent.com/thomasloven/lovelace-layout-card/master/layout-card.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
 - name: Install Slider Entry Row card
   get_url:
     url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js
