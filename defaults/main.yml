@@ -6,15 +6,15 @@ homeassistantfrigate_required_volumes:
   config: /var/docker-volumes/home-assistant/config
   localtime: /etc/localtime
 
-homeassistantfrigate_frigate_docker_image: "blakeblackshear/frigate:stable-amd64"
+homeassistantfrigate_frigate_docker_image: "ghcr.io/blakeblackshear/frigate:stable"
 homeassistantfrigate_frigate_env:
-  LIBVA_DRIVER_NAME: ''
+  LIBVA_DRIVER_NAME: ""
 homeassistantfrigate_frigate_port: 5000
-homeassistantfrigate_frigate_rtsp_port: 1935
 homeassistantfrigate_frigate_required_volumes:
   config: /var/docker-volumes/home-assistant/frigate/config
   media: /var/docker-volumes/home-assistant/frigate/media
-homeassistantfrigate_frigate_shm_size: "128m"
+homeassistantfrigate_frigate_rtsp_port: 1935
+homeassistantfrigate_frigate_shm_size: "64mb"
 homeassistantfrigate_frigate_tmpfs_size_mb: 128
 
 homeassistantfrigate_mosquitto_docker_image: eclipse-mosquitto

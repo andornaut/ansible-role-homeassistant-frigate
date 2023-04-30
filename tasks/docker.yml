@@ -10,7 +10,7 @@
       - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
     frigate_volumes:
       - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
-      - "{{ homeassistantfrigate_frigate_required_volumes.config }}:/config:ro"
+      - "{{ homeassistantfrigate_frigate_required_volumes.config }}:/config"
       - "{{ homeassistantfrigate_frigate_required_volumes.media }}:/media/frigate"
     frigate_tmpfs_volume:
       type: tmpfs # Optional ram-drive to reduce storage wear
@@ -47,6 +47,10 @@
           ports:
             - "{{ homeassistantfrigate_frigate_port }}:5000"
             - "{{ homeassistantfrigate_frigate_rtsp_port }}:1935"
+          # *Disabled for security reasons*
+          # Fix error: Unable to poll intel GPU stats: Failed to initialize PMU! (Operation not permitted)
+          # https://github.com/blakeblackshear/frigate/issues/6028#issuecomment-1506283282
+          #privileged: true
           restart: unless-stopped
           shm_size: "{{ homeassistantfrigate_frigate_shm_size }}"
           volumes: "{{ frigate_volumes + ([frigate_tmpfs_volume] if homeassistantfrigate_frigate_tmpfs_size_mb > 0 else []) }}"
