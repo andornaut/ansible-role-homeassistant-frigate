@@ -13,10 +13,26 @@
     return_content: "yes"
   register: frigate_card_version
 
-- name: Install Frigate card
+- name: Download Frigate card
   get_url:
-    url: https://github.com/dermotduffy/frigate-hass-card/releases/download/{{ frigate_card_version.json.tag_name }}/frigate-hass-card.js
-    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+    url: https://github.com/dermotduffy/frigate-hass-card/releases/download/{{ frigate_card_version.json.tag_name }}/frigate-hass-card.zip
+    dest: /tmp/frigate-hass-card.zip
+
+- name: Create frigate-hass-card directory
+  ansible.builtin.file:
+    path: "{{ homeassistantfrigate_required_volumes.config }}/www/frigate-hass-card"
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Install Frigate card
+  ansible.builtin.unarchive:
+    src: /tmp/frigate-hass-card.zip
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/frigate-hass-card"
+    # Drop the ./dist directory
+    # -j junk  paths. The  archive's directory structure is not recreated;
+    # all files are deposited in the extraction directory (by default, the current one).
+    extra_opts: '-j'
   become: true
 
 - name: Install Layout Card plugin
