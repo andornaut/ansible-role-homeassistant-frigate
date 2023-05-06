@@ -7,15 +7,15 @@
     group: root
   become: true
 
-- name: Get the latest Frigate card version
-  uri:
-    url: https://api.github.com/repos/dermotduffy/frigate-hass-card/releases/latest
-    return_content: "yes"
-  register: frigate_card_version
-
-- name: Download Frigate card
+- name: Install Button Card
   get_url:
-    url: https://github.com/dermotduffy/frigate-hass-card/releases/download/{{ frigate_card_version.json.tag_name }}/frigate-hass-card.zip
+    url: https://github.com/custom-cards/button-card/releases/latest/download/button-card.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
+- name: Download Frigate Card
+  get_url:
+    url: https://github.com/dermotduffy/frigate-hass-card/releases/latest/download/frigate-hass-card.zip
     dest: /tmp/frigate-hass-card.zip
 
 - name: Create frigate-hass-card directory
@@ -25,7 +25,7 @@
     mode: '0755'
   become: true
 
-- name: Install Frigate card
+- name: Install Frigate Card
   ansible.builtin.unarchive:
     src: /tmp/frigate-hass-card.zip
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/frigate-hass-card"
@@ -35,13 +35,13 @@
     extra_opts: '-j'
   become: true
 
-- name: Install Layout Card plugin
+- name: Install Layout Card
   get_url:
     url: https://raw.githubusercontent.com/thomasloven/lovelace-layout-card/master/layout-card.js
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
 
-- name: Install Slider Entry Row card
+- name: Install Slider Entry Row Card
   get_url:
     url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
