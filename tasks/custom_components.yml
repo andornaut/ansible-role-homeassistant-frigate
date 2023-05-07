@@ -12,7 +12,6 @@
     repo: 'https://github.com/greghesp/ha-bambulab'
     dest: /tmp/ansible-role-homeassistant-frigate/bambu_lab
     depth: 1
-    force: yes
 
 - name: Install BambuLab custom component
   copy:
@@ -25,7 +24,6 @@
     repo: 'https://github.com/blakeblackshear/frigate-hass-integration'
     dest: /tmp/ansible-role-homeassistant-frigate/frigate
     depth: 1
-    force: yes
 
 - name: Install Frigate custom component
   copy:
@@ -38,11 +36,22 @@
     repo: 'https://github.com/albertogeniola/meross-homeassistant'
     dest: /tmp/ansible-role-homeassistant-frigate/meross
     depth: 1
-    force: yes
 
 - name: Install Meross custom component
   copy:
     src: /tmp/ansible-role-homeassistant-frigate/meross/custom_components/meross_cloud
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+  become: true
+
+- name: Download Simple Icons custom component
+  git:
+    repo: 'https://github.com/vigonotion/hass-simpleicons'
+    dest: /tmp/ansible-role-homeassistant-frigate/simpleicons
+    depth: 1
+
+- name: Install Simple Icons custom component
+  copy:
+    src: /tmp/ansible-role-homeassistant-frigate/simpleicons/custom_components/simpleicons
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
   become: true
 
