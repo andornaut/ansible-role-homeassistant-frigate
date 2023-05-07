@@ -237,3 +237,4 @@ Excerpt from dmesg:
 * [Roomba](https://www.home-assistant.io/integrations/roomba/)
   * [SDK](https://github.com/koalazak/dorita980)
 * [Ruckus Unleashed](https://www.home-assistant.io/integrations/denonavr/)
+* [Simple Icons](https://github.com/vigonotion/hass-simpleicons)
