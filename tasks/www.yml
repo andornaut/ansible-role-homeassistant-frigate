@@ -41,6 +41,12 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
 
+- name: Install Mini Media Player Card
+  get_url:
+    url: https://github.com/kalkih/mini-media-player/releases/latest/download/mini-media-player-bundle.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
 - name: Install Slider Entry Row Card
   get_url:
     url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js
