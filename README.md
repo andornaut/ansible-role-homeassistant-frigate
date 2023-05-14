@@ -232,6 +232,7 @@ Excerpt from dmesg:
 * [Meross / Refoss](https://github.com/albertogeniola/meross-homeassistant)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
 * [Roborock](https://www.home-assistant.io/integrations/roborock/)
+  * [humbertogontijo/homeassistant-roborock](https://github.com/humbertogontijo/homeassistant-roborock)
   * [pfsense Nat 1:1 workaround](https://github.com/rytilahti/python-miio/issues/422#issuecomment-573408811)
   * [Xiaomi-cloud-tokens-extractor](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)
 * [Roomba](https://www.home-assistant.io/integrations/roomba/)
