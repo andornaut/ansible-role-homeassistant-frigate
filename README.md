@@ -40,15 +40,13 @@ docker exec homeassistant hass --config /config --script check_config --secrets
 * [GitHub issue #1607](https://github.com/blakeblackshear/frigate/issues/1607)
 
 ##### Gathering information
-
 ```
 $ vainfo --display drm --device /dev/dri/renderD128
 $ ffmpeg -decoders | grep qsv
 $ ffmpeg -hwaccels
 ```
 
-##### Ansible variable
-
+##### Ansible variables
 ```
 # AMD GPU
 homeassistant_frigate_env:
@@ -60,7 +58,6 @@ homeassistant_frigate_env:
 ```
 
 ##### Monitor GPU usage
-
 ```
 sudo apt install intel-gpu-tools radeontop
 sudo intel_gpu_top
