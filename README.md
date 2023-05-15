@@ -9,6 +9,11 @@ An [Ansible](https://www.ansible.com/) role that provisions
 [![homeassistant](https://github.com/andornaut/homeassistant-ibm1970-theme/blob/main/screenshots/light-colors-small.png)](https://github.com/andornaut/homeassistant-ibm1970-theme/blob/main/screenshots/light-colors-small.png)
 [![frigate](./screenshots/frigate-small.png)](./screenshots/frigate.png)
 
+## Hardware
+
+* [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
+* [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
+
 ## Configuration
 
 * [Default Ansible variables](./defaults/main.yml)
@@ -35,74 +40,31 @@ docker exec homeassistant hass --config /config --script check_config --secrets
 * [GitHub issue #1607](https://github.com/blakeblackshear/frigate/issues/1607)
 
 ##### Gathering information
+
 ```
 $ vainfo --display drm --device /dev/dri/renderD128
 $ ffmpeg -decoders | grep qsv
 $ ffmpeg -hwaccels
 ```
 
-##### AMD GPU
-```
-# Frigate config.yml
-ffmpeg:
-  hwaccel_args:
-    - -hwaccel
-    - vaapi
-    - -hwaccel_device
-    - /dev/dri/renderD128
+##### Ansible variable
 
-# Ansible variables
+```
+# AMD GPU
 homeassistant_frigate_env:
     LIBVA_DRIVER_NAME: radeonsi
 
-# Test with:
-docker exec frigate bash -c \
-    'ffmpeg -hwaccel vaapi -vaapi_device /dev/dri/renderD128 -i $(find /media/frigate -iname '*.mp4' -print -quit 2>/dev/null) /tmp/output.mp4'
-```
-
-##### Intel CPU
-
-```
-# Frigate config.yml
-ffmpeg:
-  hwaccel_args:
-    - -hwaccel
-    - qsv
-    - -qsv_device
-    - /dev/dri/renderD128
-
-# Ansible variables
+# Intel CPU
 homeassistant_frigate_env:
     LIBVA_DRIVER_NAME: i965
+```
 
-# Test with:
-docker exec frigate bash -c \
-    'ffmpeg -hwaccel qsv -qsv_device /dev/dri/renderD128 -i $(find /media/frigate -iname '*.mp4' -print -quit 2>/dev/null) /tmp/output.mp4'
+##### Monitor GPU usage
 
-# Monitor GPU usage
+```
 sudo apt install intel-gpu-tools radeontop
-
 sudo intel_gpu_top
 sudo radeontop
-```
-
-##### Common
-```
-# Frigate config.yml
-ffmpeg:
-  input_args:
-    - -avoid_negative_ts
-    - make_zero
-    - -fflags
-    - nobuffer
-    - -flags
-    - low_delay
-    - -strict
-    - experimental
-    - -fflags
-    - +genpts+discardcorrupt
-    - -use_wallclock_as_timestamps
-    - "1"
 ```
 
 ### Nginx
@@ -123,7 +85,7 @@ letsencryptnginx_websites:
     websocket_enabled: true
 ```
 
-## HACS installation
+### HACS installation
 
 * [Documentation](https://hacs.xyz/docs/setup/download):
 
