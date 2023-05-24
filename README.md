@@ -14,6 +14,15 @@ An [Ansible](https://www.ansible.com/) role that provisions
 * [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
 * [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
 
+### Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware
+
+* [Instructions for ZBDongle-P](https://sonoff.tech/wp-content/uploads/2023/02/SONOFF-Zigbee-3.0-USB-dongle-plus-firmware-flashing.pdf)
+* [How-to: Flashing the firmware via cc2538-bsl](https://www.zigbee2mqtt.io/guide/adapters/flashing/flashing_via_cc2538-bsl.html)
+* [How to Use SONOFF Dongle Plus on Home Assistant](https://sonoff.tech/product-review/how-to-use-sonoff-dongle-plus-on-home-assistant-how-to-flash-firmware/)
+* [Sonoff Zigbee 3.0 USB Dongle Plus - How to upgrade the firmware (Video)](https://www.youtube.com/watch?v=KBAGWBWBATg)
+* [CC1352P2_CC2652P_launchpad_coordinator_20221226.zip firmware](https://github.com/Koenkk/Z-Stack-firmware/raw/master/coordinator/Z-Stack_3.x.0/bin/CC1352P2_CC2652P_launchpad_coordinator_20221226.zip) from [github@Koenkk/Z-Stack-firmware](https://github.com/Koenkk/Z-Stack-firmware)
+* [github@git-developer/ti-cc-tool](https://github.com/git-developer/ti-cc-tool) - Docker image for [github@JelmerT/cc2538-bs](https://github.com/JelmerT/cc2538-bsl)
+
 ## Configuration
 
 * [Default Ansible variables](./defaults/main.yml)
@@ -174,6 +183,7 @@ Excerpt from dmesg:
 * [IBM1970 theme](https://github.com/andornaut/homeassistant-ibm1970-theme)
 * [Lovelace layout card](https://github.com/thomasloven/lovelace-layout-card)
 * [Material icons](https://materialdesignicons.com/) - Customize Home Assistant icons. Prefix with "mdi:".
+* [Simple Icons](https://github.com/vigonotion/hass-simpleicons)
 * [Slider Entity Row card](https://github.com/thomasloven/lovelace-slider-entity-row)
 
 ### Integrations
@@ -197,4 +207,4 @@ Excerpt from dmesg:
 * [Roomba](https://www.home-assistant.io/integrations/roomba/)
   * [SDK](https://github.com/koalazak/dorita980)
 * [Ruckus Unleashed](https://www.home-assistant.io/integrations/denonavr/)
-* [Simple Icons](https://github.com/vigonotion/hass-simpleicons)
+* [Zigbee Home Automation](https://www.home-assistant.io/integrations/zha/)

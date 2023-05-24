@@ -27,6 +27,8 @@
         homeassistant:
           container_name: homeassistant
           image: "{{ homeassistantfrigate_docker_image }}"
+          devices:
+            "{{ homeassistantfrigate_devices }}"  
           # `network_mode: host` is required by the Google Cast integration:
           # https://www.home-assistant.io/integrations/cast/#home-assistant-container
           network_mode: host 
@@ -36,9 +38,7 @@
           container_name: frigate
           image: "{{ homeassistantfrigate_frigate_docker_image }}"
           devices:
-            - /dev/bus/usb # For Coral.ai
-            - /dev/dri/card0
-            - /dev/dri/renderD128 # For hwaccel
+            "{{ homeassistantfrigate_frigate_devices }}"  
           environment: 
             "{{ homeassistantfrigate_frigate_env }}"
           group_add:
