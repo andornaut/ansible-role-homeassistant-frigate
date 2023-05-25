@@ -20,8 +20,8 @@ An [Ansible](https://www.ansible.com/) role that provisions
 * [How-to: Flashing the firmware via cc2538-bsl](https://www.zigbee2mqtt.io/guide/adapters/flashing/flashing_via_cc2538-bsl.html)
 * [How to Use SONOFF Dongle Plus on Home Assistant](https://sonoff.tech/product-review/how-to-use-sonoff-dongle-plus-on-home-assistant-how-to-flash-firmware/)
 * [Sonoff Zigbee 3.0 USB Dongle Plus - How to upgrade the firmware (Video)](https://www.youtube.com/watch?v=KBAGWBWBATg)
-* [CC1352P2_CC2652P_launchpad_coordinator_20221226.zip firmware](https://github.com/Koenkk/Z-Stack-firmware/raw/master/coordinator/Z-Stack_3.x.0/bin/CC1352P2_CC2652P_launchpad_coordinator_20221226.zip) from [github@Koenkk/Z-Stack-firmware](https://github.com/Koenkk/Z-Stack-firmware)
-* [github@git-developer/ti-cc-tool](https://github.com/git-developer/ti-cc-tool) - Docker image for [github@JelmerT/cc2538-bs](https://github.com/JelmerT/cc2538-bsl)
+* [CC1352P2_CC2652P_launchpad_coordinator_20221226.zip firmware](https://github.com/Koenkk/Z-Stack-firmware/raw/master/coordinator/Z-Stack_3.x.0/bin/CC1352P2_CC2652P_launchpad_coordinator_20221226.zip) from [Koenkk@github/Z-Stack-firmware](https://github.com/Koenkk/Z-Stack-firmware)
+* [git-developer@github/ti-cc-tool](https://github.com/git-developer/ti-cc-tool) - Docker image for [JelmerT@github/cc2538-bs](https://github.com/JelmerT/cc2538-bsl)
 
 ## Configuration
 
