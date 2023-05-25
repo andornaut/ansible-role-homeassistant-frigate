@@ -47,6 +47,12 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
 
+- name: Install Shutter Card
+  get_url:
+    url: https://raw.githubusercontent.com/Deejayfool/hass-shutter-card/master/hass-shutter-card.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
 - name: Install Slider Entry Row Card
   get_url:
     url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js

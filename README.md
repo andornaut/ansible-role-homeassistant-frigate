@@ -183,6 +183,7 @@ Excerpt from dmesg:
 * [IBM1970 theme](https://github.com/andornaut/homeassistant-ibm1970-theme)
 * [Lovelace layout card](https://github.com/thomasloven/lovelace-layout-card)
 * [Material icons](https://materialdesignicons.com/) - Customize Home Assistant icons. Prefix with "mdi:".
+* [Shutter card](https://github.com/Deejayfool/hass-shutter-card)
 * [Simple Icons](https://github.com/vigonotion/hass-simpleicons)
 * [Slider Entity Row card](https://github.com/thomasloven/lovelace-slider-entity-row)
 
