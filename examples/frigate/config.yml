@@ -2,10 +2,10 @@
 birdseye:
   mode: continuous
 cameras:
-  garage:
+  front:
     ffmpeg:
       inputs:
-        - path: rtsp://example.com:554/cam/realmonitor?channel=1&subtype=0
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@camera-front.example.com:554/cam/realmonitor?channel=1&subtype=0
           # NOTICE: In addition to assigning the record, and rtmp roles,
           # they must also be enabled in the camera config.
           roles:
@@ -14,91 +14,109 @@ cameras:
             - rtmp
     motion:
       mask:
-        - 0,614,0,0,186,0,206,153,64,406
-    objects:
-      track:
-        - bicycle
-        - bus
-        - car
-        - cat
-        - dog
-        - motorcycle
-        - person
+        - 618,28,1025,26,1280,85,1280,0,0,0,0,157,311,67
+      # Optional: The threshold passed to cv2.threshold to determine if a pixel is different enough to be counted as motion. (default: shown below)
+      # Increasing this value will make motion detection less sensitive and decreasing it will make motion detection more sensitive.
+      # The value should be between 1 and 255.
+      threshold: 40
+    #   objects:
+    #     track:
+    #       # Added "car"
+    #       - car
+    #       - cat
+    #       - dog
+    #       - person
+    record:
+      events:
+        required_zones:
+          - frontyard
+    snapshots:
+      required_zones:
+        - frontyard
+    zones:
+      frontyard:
+        coordinates: 1280,720,1280,254,1072,184,280,158,145,206,251,366,41,597,213,720
+  garage:
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@camera-garage.example.com:554/cam/realmonitor?channel=1&subtype=0
+          roles:
+            - detect
+            - record
+            - rtmp
+    motion:
+      mask:
+        - 323,64,185,80,188,0,328,0
+    record:
+      events:
+        required_zones:
+          - backyard
+    snapshots:
+      required_zones:
+        - backyard
+    zones:
+      backyard:
+        coordinates: 102,720,1037,720,1280,545,1280,219,710,139,360,166,346,78,191,99,69,267
   kid:
     ffmpeg:
       inputs:
-        - path: rtsp://example.com:443/videoMain
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@camera-kid.example.com:443/videoMain
           roles:
             - detect
             - rtmp
+    objects:
+      track: []
+    detect:
+      enabled: False
     record:
       enabled: False
     snapshots:
       enabled: False
-detect:
-  enabled: True
 detectors:
   coral:
-    type: cpu
+    # https://coral.ai/docs/edgetpu/multiple-edgetpu/#using-the-tensorflow-lite-python-api
+    type: edgetpu
+    device: usb
+  # Enabling the CPU detector prevents Frigate from restarting when the edgetpu detector isn't found,
+  # which worksaround this issue:
+  # https://github.com/blakeblackshear/frigate/issues/3259#issuecomment-1249408707
+  # This issue doesn't occur - and so this workaround isn't necessary - when running the container in
+  # `--privileged` mode
+  #cpu1:
+  #  type: cpu
+  #  num_threads: 3
 ffmpeg:
-  hwaccel_args:
-    - -hwaccel
-    - vaapi
-    - -hwaccel_device
-    - /dev/dri/renderD128
-  input_args:
-    - -avoid_negative_ts
-    - make_zero
-    - -fflags
-    - nobuffer
-    - -flags
-    - low_delay
-    - -strict
-    - experimental
-    - -fflags
-    - +genpts+discardcorrupt
-    - -use_wallclock_as_timestamps
-    - "1"
-motion:
-  # Optional: The threshold passed to cv2.threshold to determine if a pixel is different enough to be counted as motion. (default: shown below)
-  # Increasing this value will make motion detection less sensitive and decreasing it will make motion detection more sensitive.
-  # The value should be between 1 and 255.
-  # threshold: 25 # (default)
-  threshold: 50
+  hwaccel_args: preset-vaapi
+  #  - -hwaccel
+  #  - vaapi
+  #  - -hwaccel_device
+  #  - /dev/dri/renderD128
+  #  - -hwaccel_output_format
+  #  - yuv420p
 mqtt:
-  host: example.com
+  host: tron.example.com
 objects:
   filters:
     person:
       # Optional: minimum decimal percentage for tracked object's computed score to be considered a true positive
-      threshold: 0.72
+      threshold: 0.75
   # Optional: list of objects to track from labelmap.txt
   track:
-    - person # Default: person only
     - cat
     - dog
+    - person # Default: person only
 record:
   enabled: True
-  retain_days: 0
   events:
-    # Optional: Maximum length of time to retain video during long events.
-    # NOTE: If an object is being tracked for longer than this amount of time, the retained recordings
-    #       will be the last x seconds of the event unless retain_days under record is > 0.
-    max_seconds: 1200
-    # Optional: Number of seconds before the event to include
-    pre_capture: 10
-    # Optional: Number of seconds after the event to include
-    post_capture: 10
+    # Save all recordings segments for events with any detected motion
     retain:
       default: 60
-rtmp:
-  enabled: True
 snapshots:
   enabled: True
-  bounding_box: False
-  timestamp: True
+  bounding_box: True
   retain:
-    default: 60
+    default: 365
+  timestamp: True
 timestamp_style:
   # "tl" (top left), "tr" (top right), "bl" (bottom left), "br" (bottom right)
   position: "tr"

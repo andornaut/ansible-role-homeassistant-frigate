@@ -1,20 +1,25 @@
 default_config:
 envisalink:
   host: !secret envisalink_host
-  panel_type: DSC
   user_name: !secret envisalink_username
   password: !secret envisalink_password
   code: !secret envisalink_code
   evl_version: 4
+  panel_type: DSC
   partitions:
     1:
       name: 'Home Alarm'
+  zones:
+    21:
+      name: 'Delivery Box'
 ffmpeg:
 frontend:
   themes: !include_dir_merge_named themes
 homeassistant:
+  country: CA
   currency: CAD
   elevation: !secret homeassistant_elevation # meters
+  external_url: !secret homeassistant_external_url
   internal_url: !secret homeassistant_internal_url
   latitude: !secret zone_latitude # up/down
   longitude: !secret zone_longitude # left/right
@@ -22,11 +27,13 @@ homeassistant:
   time_zone: !secret homeassistant_time_zone
   unit_system: metric
 http:
-  use_x_forwarded_for: true
+  # Set base_url to possibly fix chrom casting? https://github.com/home-assistant/core/issues/26758
+  base_url: !secret homeassistant_internal_url
   trusted_proxies:
     - 127.0.0.1
     - 172.16.0.0/12
     - 192.168.0.0/16
+  use_x_forwarded_for: true
 logger:
   default: info
 #  logs:
@@ -38,11 +45,8 @@ logger:
   #resources:
   # - url: /local/frigate-hass-card.js
   #   type: module
-mqtt:
-  broker: !secret mqtt_broker
-neato:
-    client_id: !secret neato_client_id
-    client_secret: !secret neato_client_secret
+#mqtt:
+#  broker: !secret mqtt_broker
 notify:
 - name: mobile_apps
   platform: group
@@ -55,11 +59,11 @@ sensor:
   - platform: time_date
     display_options:
       - 'date_time'
+  - platform: version
+simpleicons:
 stream:
 tts:
   - platform: google_translate
-weather:
-  - platform: environment_canada
 zone:
   - name: Home
     icon: mdi:home
@@ -69,6 +73,5 @@ zone:
 
 automation: !include automations.yaml
 group: !include groups.yaml
-light: !include lights.yaml
 scene: !include scenes.yaml
 script: !include scripts.yaml

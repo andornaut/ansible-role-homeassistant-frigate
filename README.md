@@ -12,6 +12,7 @@ An [Ansible](https://www.ansible.com/) role that provisions
 ## Hardware
 
 * [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
+* [Home Assistant SkyConnect USB Stick](https://www.seeedstudio.com/Home-Assistant-SkyConnect-p-5479.html)
 * [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
 
 ### Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware
