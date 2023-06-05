@@ -1,10 +1,12 @@
 - id: '1647101709492'
-  alias: Reload the Roborock integration if it is unavailable
+  alias: Reload the Meross or Roborock integrations if they are unavailable
   trigger:
   - platform: homeassistant
     event: start
   - platform: state
-    entity_id: vacuum.roborock_s7_maxv
+    entity_id:
+    - cover.garage_door_msg100_main_channel
+    - vacuum.roborock_s7_maxv
     to: unavailable
     for:
       seconds: 10
@@ -13,56 +15,35 @@
       while:
       - condition: template
         value_template: '{{ repeat.index < 120 }}'
-      - condition: state
-        entity_id: vacuum.roborock_s7_maxv
-        state: unavailable
+      - condition: template
+        value_template: '{{ unavailable_ids | length > 0 }}'
       sequence:
+      - service: logbook.log
+        data:
+          entity_id: '{{ this.entity_id }}'
+          message: 'Reloading: {{ unavailable_names | join('', '') }}'
+          name: '{{ this.attributes.friendly_name }}'
       - service: homeassistant.reload_config_entry
         data: {}
         target:
-          entity_id: vacuum.roborock_s7_maxv
+          entity_id: '{{ unavailable_ids }}'
       - delay:
           minutes: 1
-  - service: logbook.log
-    data:
-      entity_id: vacuum.roborock_s7_maxv
-      message: completed. The integration's state is now '{{ states('vacuum.roborock_s7_maxv') }}''.
-      name: '{{ this.attributes.friendly_name }}'
   mode: single
-- id: '1647101709491'
-  alias: Reload the Meross integration if it is unavailable
-  trigger:
-  - platform: homeassistant
-    event: start
-  - platform: state
-    entity_id: cover.garage_door_msg100_main_channel
-    to: unavailable
-    for:
-      seconds: 10
-  action:
-  - repeat:
-      while:
-      - condition: template
-        value_template: '{{ repeat.index < 120 }}'
-      - condition: state
-        entity_id: cover.garage_door_msg100_main_channel
-        state: unavailable
-      sequence:
-      - service: homeassistant.reload_config_entry
-        data: {}
-        target:
-          entity_id: cover.garage_door_msg100_main_channel
-      - delay:
-          minutes: 1        
-  - service: logbook.log
-    data:
-      entity_id: cover.garage_door_msg100_main_channel
-      message: completed. The integration's state is now '{{ states('cover.garage_door_msg100_main_channel') }}'.
-      name: '{{ this.attributes.friendly_name }}'
-  mode: single
+  variables:
+    entity_ids:
+    - cover.garage_door_msg100_main_channel
+    - vacuum.roborock_s7_maxv
+    unavailable_ids: '{{ entity_ids | select(''is_state'', ''unavailable'') | list
+      }}'
+    unavailable_names: '{{ unavailable_ids | map(''state_attr'', ''friendly_name'')
+      | list }}'
 - id: '1632690078533'
   alias: Alert if the garage is open at night
   description: ''
+  mode: single
+  variables:
+    message: detected that the garage door is open at night
   trigger:
   - platform: time
     at: 00:00:00
@@ -84,13 +65,13 @@
       name: '{{ this.attributes.friendly_name }}'
   - service: notify.notify
     data:
-      message: '{{ message }}'
-  variables:
-    message: detected that the garage door is open at night
-  mode: single
+      message: Home Assistant {{ message }}
 - id: '1627235600150'
   alias: Alert if the security system is not armed at night
   description: ''
+  mode: single
+  variables:
+    message: detected that the security system is not armed at night
   trigger:
   - platform: time
     at: 00:00:00
@@ -111,13 +92,22 @@
       name: '{{ this.attributes.friendly_name }}'
   - service: notify.notify
     data:
-      message: '{{ message }}'
-  variables:
-    message: detected that the security system is not armed at night
-  mode: single
+      message: Home Assistant {{ message }}
 - id: '1632703838394'
   alias: Alert if a person is detected at night
   description: Send a critical/urgent notification.
+  max_exceeded: silent
+  mode: single
+  variables:
+    id: '{{ trigger.payload_json[''after''][''id''] }}'
+    base_url: http://example.com
+    camera: '{{ trigger.payload_json[''after''][''camera''] }}'
+    camera_friendly_name: '{{ camera|replace(''_'', '' '')|title }}'
+    object: '{{ trigger.payload_json[''after''][''label''] }}'
+    message: detected a "{{ object|title }}" on the "{{ camera_friendly_name }}" camera
+    objects_to_alert_on:
+    - person
+    type: '{{ trigger.payload_json[''type''] }}'
   trigger:
   - platform: mqtt
     topic: frigate/events
@@ -200,8 +190,11 @@
     timeout: '300'
   - delay:
       minutes: 30
-  mode: single
+- id: '1632703838392'
+  alias: Alert if a person is detected during the day/evening and no one is home
+  description: Sends a normal (non-critical) notification.
   max_exceeded: silent
+  mode: single
   variables:
     id: '{{ trigger.payload_json[''after''][''id''] }}'
     base_url: http://example.com
@@ -212,9 +205,6 @@
     objects_to_alert_on:
     - person
     type: '{{ trigger.payload_json[''type''] }}'
-- id: '1632703838392'
-  alias: Alert if a person is detected during the day/evening and no one is home
-  description: Sends a normal (non-critical) notification.
   trigger:
   - platform: mqtt
     topic: frigate/events
@@ -297,21 +287,16 @@
     timeout: '300'
   - delay:
       minutes: 30
-  mode: single
-  max_exceeded: silent
-  variables:
-    id: '{{ trigger.payload_json[''after''][''id''] }}'
-    base_url: http://example.com
-    camera: '{{ trigger.payload_json[''after''][''camera''] }}'
-    camera_friendly_name: '{{ camera|replace(''_'', '' '')|title }}'
-    object: '{{ trigger.payload_json[''after''][''label''] }}'
-    message: detected a "{{ object|title }}" on the "{{ camera_friendly_name }}" camera
-    objects_to_alert_on:
-    - person
-    type: '{{ trigger.payload_json[''type''] }}'
 - id: '1634149196139'
   alias: Update a person's state when a device tracker's state changes
   description: ''
+  max: 10
+  mode: queued
+  variables:
+    person: '{{ trigger.id }}'
+    entity_id: person.{{ person }}
+    is_home: '{{ trigger.to_state.state == "home" }}'
+    new_state: '{% if is_home %}home{% else %}not_home{% endif %}'
   trigger:
   - platform: state
     entity_id: device_tracker.iphone13
@@ -328,7 +313,6 @@
   - platform: state
     entity_id: device_tracker.ruckus_pixel6
     id: b
-  condition: []
   action:
   - service: logbook.log
     data:
@@ -339,16 +323,10 @@
     data:
       entity_id: '{{ entity_id }}'
       state: '{{ new_state }}'
-  mode: queued
-  max: 10
-  variables:
-    person: '{{ trigger.id }}'
-    entity_id: person.{{ person }}
-    is_home: '{{ trigger.to_state.state == "home" }}'
-    new_state: '{% if is_home %}home{% else %}not_home{% endif %}'
 - id: '1635387890899'
   alias: Turn off all lights at night
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: 00:00:00
@@ -372,10 +350,10 @@
       - light.basement_stairs_bottom_lights
       - light.basement_stairs_top_lights
     data: {}
-  mode: single
 - id: '1635390023842'
   alias: Turn on some lights on weekday mornings
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: 07:00:00
@@ -398,10 +376,10 @@
       - kitchen
       entity_id: light.office_lights
     data: {}
-  mode: single
 - id: '1635390023844'
   alias: Turn on some lights on weekend mornings
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: 08:00:00
@@ -419,19 +397,10 @@
       - kitchen
       - living_room
     data: {}
-  mode: single
-- id: '1635390023843'
-  alias: Restart every night
-  description: ''
-  trigger:
-  - platform: time
-    at: 03:00:00
-  action:
-  - service: homeassistant.restart
-  mode: single
 - id: '1670647863334'
   alias: Turn off outdoor Xmas decorations at night
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: '23:00:00'
@@ -441,10 +410,10 @@
     device_id: d3b6a61c19b67306fa648280f71b2afe
     entity_id: switch.outlet_outdoors_mss620_main_channel
     domain: switch
-  mode: single
 - id: '1670647912019'
   alias: Turn on outdoor Xmas decorations in the evening
   description: ''
+  mode: single
   trigger:
   - platform: time
     at: '16:00:00'
@@ -454,4 +423,3 @@
     device_id: d3b6a61c19b67306fa648280f71b2afe
     entity_id: switch.outlet_outdoors_mss620_main_channel
     domain: switch
-  mode: single
