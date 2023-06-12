@@ -169,38 +169,38 @@ Excerpt from dmesg:
 [  336.755611] usb 3-2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
 ```
 
-## Links
+## Documentation and resources
 
 * [BurningStone91's smart home setup](https://github.com/Burningstone91/smart-home-setup/)
-* [Eclipse Mosquitto](https://mosquitto.org/) - MQTT message broker
 * [FFmpeg QuickSync](https://trac.ffmpeg.org/wiki/Hardware/QuickSync)
 * [FFmpeg VAAPI](https://trac.ffmpeg.org/wiki/Hardware/VAAPI)
-* [Frigate](https://github.com/blakeblackshear/frigate) - NVR with realtime local object detection for IP cameras
-* [Frigate lovelace card](https://github.com/dermotduffy/frigate-hass-card)
 * [Frigate machine learning accelerator by Coral](https://coral.ai/products/)
 * [Frigate mobile app notifications blueprint](https://community.home-assistant.io/t/frigate-mobile-app-notifications/311091)
 * [Home Assistant automation trigger variables](https://www.home-assistant.io/docs/automation/templating/)
 * [Home Assistant script syntax](https://www.home-assistant.io/docs/scripts/)
 * [IBM1970 theme](https://github.com/andornaut/homeassistant-ibm1970-theme)
-* [Lovelace layout card](https://github.com/thomasloven/lovelace-layout-card)
 * [Material icons](https://materialdesignicons.com/) - Customize Home Assistant icons. Prefix with "mdi:".
-* [Shutter card](https://github.com/Deejayfool/hass-shutter-card)
-* [Simple Icons](https://github.com/vigonotion/hass-simpleicons)
-* [Slider Entity Row card](https://github.com/thomasloven/lovelace-slider-entity-row)
+* [Mosquitto](https://mosquitto.org/) - MQTT message broker
+* [SgtBatten's HA blueprints](https://github.com/SgtBatten/HA_blueprints)
+
+### Custom cards
+
+* [Button card](https://github.com/custom-cards/button-card/)
+* [Frigate Lovelace card](https://github.com/dermotduffy/frigate-hass-card)
+* [Layout card](github.com/thomasloven/lovelace-layout-card)
+* [Mini media player](https://github.com/kalkih/mini-media-player)
+* [Slider entity row](https://github.com/thomasloven/lovelace-slider-entity-row/)
 
 ### Integrations
 
 * [Amcrest](https://www.home-assistant.io/integrations/amcrest/)
-* [BambuLab](https://github.com/greghesp/ha-bambulab)
 * [Denon AVR](https://www.home-assistant.io/integrations/denonavr/)
 * [Ecobee](https://www.home-assistant.io/integrations/ecobee/)
 * [Elgato Light](https://www.home-assistant.io/integrations/elgato/)
 * [Envisalink](https://www.home-assistant.io/integrations/envisalink/)
 * [Foscam](https://www.home-assistant.io/integrations/foscam/)
-* [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 * [Google Cast](https://www.home-assistant.io/integrations/cast/)
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
-* [Meross / Refoss](https://github.com/albertogeniola/meross-homeassistant)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
 * [Roborock](https://www.home-assistant.io/integrations/roborock/)
   * [humbertogontijo/homeassistant-roborock](https://github.com/humbertogontijo/homeassistant-roborock)
@@ -210,3 +210,11 @@ Excerpt from dmesg:
   * [SDK](https://github.com/koalazak/dorita980)
 * [Ruckus Unleashed](https://www.home-assistant.io/integrations/denonavr/)
 * [Zigbee Home Automation](https://www.home-assistant.io/integrations/zha/)
+
+#### Custom integrations
+
+* [Bambu Lab](https://github.com/greghesp/ha-bambulab)
+* [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
+* [Meross](https://github.com/albertogeniola/meross-homeassistant)
+* [Roborock](https://github.com/humbertogontijo/homeassistant-roborock)
+* [Simpleicons](https://github.com/vigonotion/hass-simpleicons)
