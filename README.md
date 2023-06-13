@@ -142,6 +142,24 @@ docker exec -ti homeassistant \
     | xargs sed -i 's/pyenvisalink==[a-zA-Z0-9.]\+/pyenvisalink==4.0/g'"
 ```
 
+Or upgrade the offending dependency directly as in these Ansible tasks:
+
+```
+- name: "Install pexpect from the 'master' branch. Workaround 1/2 for: https://github.com/home-assistant/core/issues/94264"
+  community.docker.docker_container_exec:
+    container: homeassistant
+    argv:
+      - /bin/bash
+      - "-c"
+      - "pip install https://github.com/pexpect/pexpect/archive/master.zip"
+
+- name: "Restart the homeassistant container. Workaround 2/2 for: https://github.com/home-assistant/core/issues/94264"
+  community.docker.docker_container:
+    name: homeassistant
+    state: started
+    restart: true
+```
+
 ### Coral.ai doesn't work
 
 * [Failed to load delegate from libedgetpu.so.1.0](https://github.com/blakeblackshear/frigate/issues/3259)

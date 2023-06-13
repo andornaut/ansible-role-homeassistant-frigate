@@ -63,15 +63,13 @@
             - "{{ homeassistantfrigate_mosquitto_required_volumes.data }}:/mosquitto/data"
             - "{{ homeassistantfrigate_mosquitto_required_volumes.log }}:/mosquitto/log"
 
-- name: "Install pexpect from 'master' branch. Workaround 1/2 for: https://github.com/home-assistant/core/issues/94264"
+- name: "Install pexpect from the 'master' branch. Workaround 1/2 for: https://github.com/home-assistant/core/issues/94264"
   community.docker.docker_container_exec:
     container: homeassistant
     argv:
       - /bin/bash
       - "-c"
       - "pip install https://github.com/pexpect/pexpect/archive/master.zip"
-    chdir: /root
-  register: result
 
 - name: "Restart the homeassistant container. Workaround 2/2 for: https://github.com/home-assistant/core/issues/94264"
   community.docker.docker_container:
