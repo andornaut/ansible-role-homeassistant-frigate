@@ -31,7 +31,7 @@
           # `network_mode: host` is required by the Google Cast integration:
           # https://www.home-assistant.io/integrations/cast/#home-assistant-container
           network_mode: host
-          restart: on-failure:5
+          restart: unless-stopped
           volumes: "{{ required_volumes + homeassistantfrigate_extra_volumes }}"
         frigate:
           container_name: frigate
@@ -48,7 +48,7 @@
           # Fix error: Unable to poll intel GPU stats: Failed to initialize PMU! (Operation not permitted)
           # https://github.com/blakeblackshear/frigate/issues/6028#issuecomment-1506283282
           #privileged: true
-          restart: on-failure:5
+          restart: unless-stopped
           shm_size: "{{ homeassistantfrigate_frigate_shm_size }}"
           volumes: "{{ frigate_volumes + ([frigate_tmpfs_volume] if homeassistantfrigate_frigate_tmpfs_size_mb > 0 else []) }}"
         mosquitto:
@@ -56,7 +56,7 @@
           image: "{{ homeassistantfrigate_mosquitto_docker_image }}"
           ports:
             - "{{ homeassistantfrigate_mosquitto_port }}:1883"
-          restart: on-failure:5
+          restart: unless-stopped
           volumes:
             - "{{ homeassistantfrigate_required_volumes.localtime }}:/etc/localtime:ro"
             - "{{ homeassistantfrigate_mosquitto_required_volumes.config }}:/mosquitto/config:ro"
