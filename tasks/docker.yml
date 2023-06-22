@@ -44,6 +44,8 @@
           ports:
             - "{{ homeassistantfrigate_frigate_port }}:5000"
             - "{{ homeassistantfrigate_frigate_rtsp_port }}:1935"
+            - "8555:8555/tcp" # WebRTC over tcp
+            - "8555:8555/udp" # WebRTC over UDP
           # *Disabled for security reasons*
           # Fix error: Unable to poll intel GPU stats: Failed to initialize PMU! (Operation not permitted)
           # https://github.com/blakeblackshear/frigate/issues/6028#issuecomment-1506283282
