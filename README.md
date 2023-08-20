@@ -235,4 +235,5 @@ Excerpt from dmesg:
 * [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 * [Meross](https://github.com/albertogeniola/meross-homeassistant)
 * [Roborock](https://github.com/humbertogontijo/homeassistant-roborock)
+* [Sensei Thermostat](https://github.com/iprak/sensi)
 * [Simpleicons](https://github.com/vigonotion/hass-simpleicons)
