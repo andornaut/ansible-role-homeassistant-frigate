@@ -103,6 +103,18 @@ docker exec -ti homeassistant \
 
 ## Troubleshooting
 
+### Sensi Thermostat HomeKit
+
+* [/r/homeassistant/ post](https://github.com/andornaut/ansible-role-homeassistant-frigate/edit/main/README.md)
+
+1. Reset the thermostat to factory settings
+1. Begin the thermostat setup process via the Sensi app
+1. Prior to configuring WIFI, the thermostat will display a pairing code - take note of this.
+1. Continue with the setup process via the Sensi app, but switch to Home Assistant once you've connected the thermostat to WIFI
+1. Home Assistant should now detect a new HomeKit device, which you should begin configuring
+1. When prompted for a "pairing code", enter the code noted above, and then complete the setup procedure
+1. Complete the Sensi app setup procedure
+
 ### Neato reauthorization
 
 * [Neato configuration](https://www.home-assistant.io/integrations/neato/#configuration)
