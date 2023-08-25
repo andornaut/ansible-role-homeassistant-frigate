@@ -103,18 +103,6 @@ docker exec -ti homeassistant \
 
 ## Troubleshooting
 
-### Sensi Thermostat HomeKit
-
-* [/r/homeassistant/ post](https://github.com/andornaut/ansible-role-homeassistant-frigate/edit/main/README.md)
-
-1. Reset the thermostat to factory settings
-1. Begin the thermostat setup process via the Sensi app
-1. Prior to configuring WIFI, the thermostat will display a pairing code - take note of this.
-1. Continue with the setup process via the Sensi app, but switch to Home Assistant once you've connected the thermostat to WIFI
-1. Home Assistant should now detect a new HomeKit device, which you should begin configuring
-1. When prompted for a "pairing code", enter the code noted above, and then complete the setup procedure
-1. Complete the Sensi app setup procedure
-
 ### Neato reauthorization
 
 * [Neato configuration](https://www.home-assistant.io/integrations/neato/#configuration)
@@ -139,6 +127,25 @@ which you can do by [navigating to it](https://my.home-assistant.io/) and submit
 
 n.b. If you've deleted and re-created a new "application" in the Neato developer portal,
 then be sure to update the client_id and client_secret in `secrets.yaml`.
+
+### iRobot Roomba J7 cloud password
+
+Get the cloud password (authn/z token):
+```
+docker run -it node sh -c "npm install -g dorita980 && get-roomba-password-cloud ${websiteEmail} ${websitePassword}
+```
+
+### Sensi Thermostat HomeKit
+
+* [/r/homeassistant/ post](https://github.com/andornaut/ansible-role-homeassistant-frigate/edit/main/README.md)
+
+1. Reset the thermostat to factory settings
+1. Begin the thermostat setup process via the Sensi app
+1. Prior to configuring WIFI, the thermostat will display a pairing code - take note of this.
+1. Continue with the setup process via the Sensi app, but switch to Home Assistant once you've connected the thermostat to WIFI
+1. Home Assistant should now detect a new HomeKit device, which you should begin configuring
+1. When prompted for a "pairing code", enter the code noted above, and then complete the setup procedure
+1. Complete the Sensi app setup procedure
 
 ### Upgrade, downgrade or pin a component's dependencies
 
