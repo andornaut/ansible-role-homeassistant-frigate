@@ -24,6 +24,8 @@
     repo: "https://github.com/blakeblackshear/frigate-hass-integration"
     dest: /tmp/ansible-role-homeassistant-frigate/frigate
     depth: 1
+    # Workaround: >=5 is needed by Frigate v13-beta2
+    version: v5.0.0-beta.2
 
 - name: Install Frigate custom component
   copy:
@@ -45,14 +47,14 @@
 
 - name: Download Roborock custom component
   get_url:
-    url: 'https://github.com/humbertogontijo/homeassistant-roborock/releases/latest/download/roborock.zip'
+    url: "https://github.com/humbertogontijo/homeassistant-roborock/releases/latest/download/roborock.zip"
     dest: /tmp/roborock-custom-component.zip
 
 - name: Create Roborock custom component directory
   ansible.builtin.file:
     path: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/roborock"
     state: directory
-    mode: '0755'
+    mode: "0755"
   become: true
 
 - name: Install Roborock custom component

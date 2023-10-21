@@ -13,6 +13,7 @@ An [Ansible](https://www.ansible.com/) role that provisions
 
 * [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
 * [Home Assistant SkyConnect USB Stick](https://www.seeedstudio.com/Home-Assistant-SkyConnect-p-5479.html)
+* [ratgdo](https://paulwieland.github.io/ratgdo/) - Local MQTT & dry contact control of Chamberlain/LiftMaster Security+ 2.0 garage door openers
 * [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
 
 ### Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware
