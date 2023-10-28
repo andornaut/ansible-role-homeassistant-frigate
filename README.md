@@ -223,6 +223,7 @@ Excerpt from dmesg:
 
 ### Custom cards
 
+* [Bubble Card](https://github.com/Clooos/Bubble-Card)
 * [Button card](https://github.com/custom-cards/button-card/)
 * [Frigate Lovelace card](https://github.com/dermotduffy/frigate-hass-card)
 * [Layout card](github.com/thomasloven/lovelace-layout-card)

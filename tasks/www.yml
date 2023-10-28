@@ -7,6 +7,12 @@
     group: root
   become: true
 
+- name: Install Bubble Card
+  get_url:
+    url: https://raw.githubusercontent.com/Clooos/Bubble-Card/main/bubble-card.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
 - name: Install Button Card
   get_url:
     url: https://github.com/custom-cards/button-card/releases/latest/download/button-card.js
@@ -22,7 +28,7 @@
   ansible.builtin.file:
     path: "{{ homeassistantfrigate_required_volumes.config }}/www/frigate-hass-card"
     state: directory
-    mode: '0755'
+    mode: "0755"
   become: true
 
 - name: Install Frigate Card
@@ -32,7 +38,7 @@
     # Drop the ./dist directory
     # -j junk  paths. The  archive's directory structure is not recreated;
     # all files are deposited in the extraction directory (by default, the current one).
-    extra_opts: '-j'
+    extra_opts: "-j"
   become: true
 
 - name: Install Layout Card
