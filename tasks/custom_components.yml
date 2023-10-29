@@ -24,8 +24,8 @@
     repo: "https://github.com/blakeblackshear/frigate-hass-integration"
     dest: /tmp/ansible-role-homeassistant-frigate/frigate
     depth: 1
-    # Workaround: >=5 is needed by Frigate v13-beta2
-    version: v5.0.0-beta.2
+    # Workaround: >=5 is needed by Frigate v13-beta3
+    version: v5.0.0-beta.3
 
 - name: Install Frigate custom component
   copy:
