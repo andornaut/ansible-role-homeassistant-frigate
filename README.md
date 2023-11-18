@@ -13,10 +13,33 @@ An [Ansible](https://www.ansible.com/) role that provisions
 
 * [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
 * [Home Assistant SkyConnect USB Stick](https://www.seeedstudio.com/Home-Assistant-SkyConnect-p-5479.html)
-* [ratgdo](https://paulwieland.github.io/ratgdo/) - Local MQTT & dry contact control of Chamberlain/LiftMaster Security+ 2.0 garage door openers
-* [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
 
-### Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware
+### [ratgdo](https://paulwieland.github.io/ratgdo/) - Local MQTT & dry contact control of Chamberlain/LiftMaster Security+ 2.0 garage door openers
+
+Getting started
+
+1. Flash the "ratgdo v2.51, Security + 1.0, 2.0 & Dry Contact" firmware using [this webapp](https://paulwieland.github.io/ratgdo/flash.html)
+   * The webapp will prompt you to configure WiFi
+1. Navigate to the admin web interface
+1. Set a MQTT IP and port:1883. You must use an IP not a hostname.
+1. Leave the "Home Assistant Discovery Prefix" at its default "homeassistant"
+1. Wire the ratgdo to the garage door opener according to [this diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)
+1. Navigate to Home Assistant > Settings > Devices & services > Devices and then search for "ratgdo"
+1. Add a new card to your dashboard:
+   ```
+   show_name: true
+   show_icon: true
+   type: button
+    entity: cover.ratgdo_door
+   name: Garage Door
+   tap_action:
+     action: toggle
+   show_state: true
+   ```
+
+### [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
+
+Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware:
 
 * [Instructions for ZBDongle-P](https://sonoff.tech/wp-content/uploads/2023/02/SONOFF-Zigbee-3.0-USB-dongle-plus-firmware-flashing.pdf)
 * [How-to: Flashing the firmware via cc2538-bsl](https://www.zigbee2mqtt.io/guide/adapters/flashing/flashing_via_cc2538-bsl.html)
