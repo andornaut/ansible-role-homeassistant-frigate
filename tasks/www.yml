@@ -7,9 +7,15 @@
     group: root
   become: true
 
-- name: Install Bubble Card
+- name: Install Bubble Card bubble-card.js
   get_url:
-    url: https://raw.githubusercontent.com/Clooos/Bubble-Card/main/bubble-card.js
+    url: https://raw.githubusercontent.com/Clooos/Bubble-Card/main/src/bubble-card.js
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
+  become: true
+
+- name: Install Bubble Card bubble-pop-up.js
+  get_url:
+    url: https://raw.githubusercontent.com/Clooos/Bubble-Card/main/src/bubble-pop-up.js
     dest: "{{ homeassistantfrigate_required_volumes.config }}/www/"
   become: true
 
