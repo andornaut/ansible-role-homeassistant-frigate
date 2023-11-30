@@ -33,6 +33,18 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
   become: true
 
+- name: Download Govee custom component
+  git:
+    repo: "https://github.com/LaggAt/hacs-govee"
+    dest: /tmp/ansible-role-homeassistant-frigate/govee
+    depth: 1
+
+- name: Install Govee custom component
+  copy:
+    src: /tmp/ansible-role-homeassistant-frigate/govee/custom_components/govee
+    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
+  become: true
+
 - name: Download Meross custom component
   git:
     repo: "https://github.com/albertogeniola/meross-homeassistant"

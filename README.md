@@ -262,6 +262,7 @@ Excerpt from dmesg:
 * [Envisalink](https://www.home-assistant.io/integrations/envisalink/)
 * [Foscam](https://www.home-assistant.io/integrations/foscam/)
 * [Google Cast](https://www.home-assistant.io/integrations/cast/)
+* [Govee](https://github.com/LaggAt/hacs-govee)
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
 * [Roborock](https://www.home-assistant.io/integrations/roborock/)
