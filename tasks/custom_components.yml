@@ -57,28 +57,6 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
   become: true
 
-- name: Download Roborock custom component
-  get_url:
-    url: "https://github.com/humbertogontijo/homeassistant-roborock/releases/latest/download/roborock.zip"
-    dest: /tmp/roborock-custom-component.zip
-
-- name: Create Roborock custom component directory
-  ansible.builtin.file:
-    path: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/roborock"
-    state: directory
-    mode: "0755"
-  become: true
-
-- name: Install Roborock custom component
-  ansible.builtin.unarchive:
-    src: /tmp/roborock-custom-component.zip
-    dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/roborock"
-    # Drop the ./dist directory
-    # -j junk  paths. The  archive's directory structure is not recreated;
-    # all files are deposited in the extraction directory (by default, the current one).
-    #extra_opts: '-j'
-  become: true
-
 - name: Download Simple Icons custom component
   git:
     repo: "https://github.com/vigonotion/hass-simpleicons"

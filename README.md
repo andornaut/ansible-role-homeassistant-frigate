@@ -26,6 +26,7 @@ Getting started
 1. Wire the ratgdo to the garage door opener according to [this diagram](https://user-images.githubusercontent.com/4663918/276749741-fe82ea10-e8f4-41d6-872f-55eec88d2aab.png)
 1. Navigate to Home Assistant > Settings > Devices & services > Devices and then search for "ratgdo"
 1. Add a new card to your dashboard:
+
    ```
    show_name: true
    show_icon: true
@@ -58,6 +59,7 @@ Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware:
 * [Example configuration.yaml](./examples/homeassistant/configuration.yaml)
 
 Test configuration
+
 ```
 docker exec homeassistant hass --config /config --script check_config
 docker exec homeassistant hass --config /config --script check_config --secrets
@@ -74,13 +76,15 @@ docker exec homeassistant hass --config /config --script check_config --secrets
 * [GitHub issue #1607](https://github.com/blakeblackshear/frigate/issues/1607)
 
 ##### Gathering information
+
 ```
-$ vainfo --display drm --device /dev/dri/renderD128
-$ ffmpeg -decoders | grep qsv
-$ ffmpeg -hwaccels
+vainfo --display drm --device /dev/dri/renderD128
+ffmpeg -decoders | grep qsv
+ffmpeg -hwaccels
 ```
 
 ##### Ansible variables
+
 ```
 # AMD GPU
 homeassistant_frigate_env:
@@ -92,6 +96,7 @@ homeassistant_frigate_env:
 ```
 
 ##### Monitor GPU usage
+
 ```
 sudo apt install intel-gpu-tools radeontop
 sudo intel_gpu_top
@@ -155,6 +160,7 @@ then be sure to update the client_id and client_secret in `secrets.yaml`.
 ### iRobot Roomba J7 cloud password
 
 Get the cloud password (authn/z token):
+
 ```
 docker run -it node sh -c "npm install -g dorita980 && get-roomba-password-cloud ${websiteEmail} ${websitePassword}
 ```
@@ -217,6 +223,7 @@ When debugging, note that when a Coral.ai USB adpater is first connected its man
 [but then it changes](https://github.com/google-coral/edgetpu/issues/536) to "Google Inc." after its first inference, so look for both manufacturer names: `lsusb | grep -E 'Global|Google'`
 
 Excerpt from dmesg:
+
 ```
 [  303.677695] usb 3-2: new high-speed USB device number 22 using xhci_hcd
 [  303.827453] usb 3-2: New USB device found, idVendor=1a6e, idProduct=089a, bcdDevice= 1.00
@@ -266,7 +273,6 @@ Excerpt from dmesg:
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
 * [Roborock](https://www.home-assistant.io/integrations/roborock/)
-  * [humbertogontijo/homeassistant-roborock](https://github.com/humbertogontijo/homeassistant-roborock)
   * [pfsense Nat 1:1 workaround](https://github.com/rytilahti/python-miio/issues/422#issuecomment-573408811)
   * [Xiaomi-cloud-tokens-extractor](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)
 * [Roomba](https://www.home-assistant.io/integrations/roomba/)
@@ -279,6 +285,5 @@ Excerpt from dmesg:
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
 * [Meross](https://github.com/albertogeniola/meross-homeassistant)
-* [Roborock](https://github.com/humbertogontijo/homeassistant-roborock)
 * [Sensei Thermostat](https://github.com/iprak/sensi)
 * [Simpleicons](https://github.com/vigonotion/hass-simpleicons)
