@@ -269,7 +269,6 @@ Excerpt from dmesg:
 * [Envisalink](https://www.home-assistant.io/integrations/envisalink/)
 * [Foscam](https://www.home-assistant.io/integrations/foscam/)
 * [Google Cast](https://www.home-assistant.io/integrations/cast/)
-* [Govee](https://github.com/LaggAt/hacs-govee)
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
 * [Neato](https://www.home-assistant.io/integrations/neato/)
 * [Roborock](https://www.home-assistant.io/integrations/roborock/)
@@ -284,6 +283,8 @@ Excerpt from dmesg:
 
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
+* [Govee](https://github.com/LaggAt/hacs-govee)
+* [Govee LAN](https://github.com/wez/govee-lan-hass)
 * [Meross](https://github.com/albertogeniola/meross-homeassistant)
 * [Sensei Thermostat](https://github.com/iprak/sensi)
 * [Simpleicons](https://github.com/vigonotion/hass-simpleicons)
