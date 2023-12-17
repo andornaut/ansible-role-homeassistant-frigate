@@ -45,6 +45,14 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
   become: true
 
+- name: WORKAROUND - upgrade dacite to 1.8.1 to avoid breaking the roborock integration
+  # Implements: https://github.com/LaggAt/hacs-govee/pull/143
+  ansible.builtin.lineinfile:
+    path: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/govee/manifest.json"
+    line: '"requirements": ["govee-api-laggat==0.2.2", "dacite>=1.8.0"],'
+    regexp: '^\s+"requirements'
+  become: true
+
 - name: Download Meross custom component
   git:
     repo: "https://github.com/albertogeniola/meross-homeassistant"
