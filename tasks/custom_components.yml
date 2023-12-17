@@ -33,24 +33,16 @@
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
   become: true
 
-- name: Download Govee custom component
+- name: Download Govee LAN custom component
   git:
-    repo: "https://github.com/LaggAt/hacs-govee"
-    dest: /tmp/ansible-role-homeassistant-frigate/govee
+    repo: "https://github.com/wez/govee-lan-hass"
+    dest: /tmp/ansible-role-homeassistant-frigate/govee_lan
     depth: 1
 
-- name: Install Govee custom component
+- name: Install Govee LAN custom component
   copy:
-    src: /tmp/ansible-role-homeassistant-frigate/govee/custom_components/govee
+    src: /tmp/ansible-role-homeassistant-frigate/govee_lan/custom_components/govee_lan
     dest: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/"
-  become: true
-
-- name: WORKAROUND - upgrade dacite to 1.8.1 to avoid breaking the roborock integration
-  # Implements: https://github.com/LaggAt/hacs-govee/pull/143
-  ansible.builtin.lineinfile:
-    path: "{{ homeassistantfrigate_required_volumes.config }}/custom_components/govee/manifest.json"
-    line: '"requirements": ["govee-api-laggat==0.2.2", "dacite>=1.8.0"],'
-    regexp: '^\s+"requirements'
   become: true
 
 - name: Download Meross custom component

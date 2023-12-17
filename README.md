@@ -283,7 +283,7 @@ Excerpt from dmesg:
 
 * [Bambu Lab](https://github.com/greghesp/ha-bambulab)
 * [Frigate](https://github.com/blakeblackshear/frigate-hass-integration)
-* [Govee](https://github.com/LaggAt/hacs-govee)
+* [Govee](https://github.com/LaggAt/hacs-govee) - Currently incompatible with Roborock. See [workaround](https://github.com/LaggAt/hacs-govee/pull/143)
 * [Govee LAN](https://github.com/wez/govee-lan-hass)
 * [Meross](https://github.com/albertogeniola/meross-homeassistant)
 * [Sensei Thermostat](https://github.com/iprak/sensi)
