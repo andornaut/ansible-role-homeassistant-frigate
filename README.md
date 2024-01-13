@@ -14,6 +14,21 @@ An [Ansible](https://www.ansible.com/) role that provisions
 * [Coral.ai USB accelerator](https://coral.ai/products/accelerator/)
 * [Home Assistant SkyConnect USB Stick](https://www.seeedstudio.com/Home-Assistant-SkyConnect-p-5479.html)
 
+### Bluetooth CSR8510 adapter
+
+* [dbus-broker](https://github.com/bus1/dbus-broker/wiki)
+* [Home Assistant/bluetooth](https://www.home-assistant.io/integrations/bluetooth)
+
+```
+# Setup dbus-broker
+apt install dbus-broker
+systemctl enable dbus-broker.service
+
+# Make /run/dbus accessible from inside the container by editing host_vars/${host}:
+homeassistantfrigate_extra_volumes:
+  - "/run/dbus:/run/dbus:ro"
+```
+
 ### [ratgdo](https://paulwieland.github.io/ratgdo/) - Local MQTT & dry contact control of Chamberlain/LiftMaster Security+ 2.0 garage door openers
 
 Getting started
