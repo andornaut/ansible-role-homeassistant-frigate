@@ -53,7 +53,7 @@ Getting started
    show_state: true
    ```
 
-### [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/)
+### [SONOFF Zigbee 3.0 USB Dongle Plus](https://itead.cc/product/sonoff-zigbee-3-0-usb-dongle-plus/) (CC2652P)
 
 Upgrading SONOFF Zigbee 3.0 USB Dongle Plus (ZBDongle-P) firmware:
 
@@ -146,31 +146,6 @@ docker exec -ti homeassistant \
 ```
 
 ## Troubleshooting
-
-### Neato reauthorization
-
-* [Neato configuration](https://www.home-assistant.io/integrations/neato/#configuration)
-* [Home Assistant forums](https://community.home-assistant.io/t/neato-integration-needs-to-be-reconfigured-after-updating-ha-from-2020-12-1-to-2021-1-1/266345/22)
-
-The Neato integration can sometimes report this error:
-
-> Failed to set up: Token not valid, trigger renewal
-
-When this occurs, click the "Reconfigure" button in Home Assistant `/config/integrations`,
-which will start a new authorization flow with Neato.
-The reauthorization flow may trigger this error:
-
-> The redirect uri included is not valid.
-
-If that occurs, then ensure that the "Redirect URI" of the "application" configured in
-[the Neato developers portal](https://developers.neatorobotics.com/applications)
-points to `https://my.home-assistant.io/redirect/oauth`,
-and ensure that [https://my.home-assistant.io/](https://my.home-assistant.io/)
-is configured to point to your Home Assistant `external_url`,
-which you can do by [navigating to it](https://my.home-assistant.io/) and submitting the form.
-
-n.b. If you've deleted and re-created a new "application" in the Neato developer portal,
-then be sure to update the client_id and client_secret in `secrets.yaml`.
 
 ### iRobot Roomba J7 cloud password
 
