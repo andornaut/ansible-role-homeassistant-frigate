@@ -3,6 +3,23 @@
   getent:
     database: group
 
+- name: Copy docker-ble-policy
+  ansible.builtin.copy:
+    src: homeassistant/docker-ble-policy
+    dest: /etc/apparmor.d/
+    owner: root
+    group: root
+    mode: "0644"
+  register: apparmor_policy
+  become: true
+
+- name: Reload apparmor.service
+  ansible.builtin.systemd_service:
+    name: apparmor.service
+    state: restarted
+  when: apparmor_policy.changed
+  become: true
+
 - name: Start Home Assistant Docker containers
   vars:
     required_volumes:
@@ -31,10 +48,10 @@
           # `network_mode: host` is required by the Google Cast integration:
           # https://www.home-assistant.io/integrations/cast/#home-assistant-container
           network_mode: host
-          # WORKAROUND: Permission errors in `journalctl -u dbus-broker -f`:
-          #   "A security policy denied :1.331 to send method call /org/freedesktop/DBus"
-          privileged: true
           restart: unless-stopped
+          # Apply this Apparmor policy (installed above) to allow the container to access bluetooth via dbus-broker
+          security_opt:
+            - "apparmor:docker-ble-policy"
           volumes: "{{ required_volumes + homeassistantfrigate_extra_volumes }}"
         frigate:
           container_name: frigate
