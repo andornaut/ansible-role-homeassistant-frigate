@@ -31,6 +31,9 @@
           # `network_mode: host` is required by the Google Cast integration:
           # https://www.home-assistant.io/integrations/cast/#home-assistant-container
           network_mode: host
+          # WORKAROUND: Permission errors in `journalctl -u dbus-broker -f`:
+          #   "A security policy denied :1.331 to send method call /org/freedesktop/DBus"
+          privileged: true
           restart: unless-stopped
           volumes: "{{ required_volumes + homeassistantfrigate_extra_volumes }}"
         frigate:
