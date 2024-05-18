@@ -34,6 +34,7 @@ homeassistantfrigate_extra_volumes:
 Getting started
 
 1. Flash the "ratgdo v2.51, Security + 1.0, 2.0 & Dry Contact" firmware using [this webapp](https://paulwieland.github.io/ratgdo/flash.html)
+   * [Download MQTT firmware](https://github.com/ratgdo/mqtt-ratgdo)
    * The webapp will prompt you to configure WiFi
 1. Navigate to the admin web interface
 1. Set a MQTT IP and port:1883. You must use an IP not a hostname.
