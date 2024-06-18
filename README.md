@@ -264,6 +264,7 @@ Excerpt from dmesg:
 * [Ecobee](https://www.home-assistant.io/integrations/ecobee/)
 * [Elgato Light](https://www.home-assistant.io/integrations/elgato/)
 * [Envisalink](https://www.home-assistant.io/integrations/envisalink/)
+  * [Envisalink Refactored](https://github.com/ufodone/envisalink_new) - Independent rewrite
 * [Foscam](https://www.home-assistant.io/integrations/foscam/)
 * [Google Cast](https://www.home-assistant.io/integrations/cast/)
 * [HomeKit](https://www.home-assistant.io/integrations/homekit/)
