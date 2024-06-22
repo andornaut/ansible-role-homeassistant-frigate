@@ -86,3 +86,13 @@
             - "{{ homeassistantfrigate_mosquitto_required_volumes.config }}:/mosquitto/config:ro"
             - "{{ homeassistantfrigate_mosquitto_required_volumes.data }}:/mosquitto/data"
             - "{{ homeassistantfrigate_mosquitto_required_volumes.log }}:/mosquitto/log"
+
+# https://github.com/home-assistant/core/issues/119443
+- name: WORKAROUND envisalink alarm-panel bug
+  community.docker.docker_container_exec:
+    container: homeassistant
+    argv:
+      - /bin/bash
+      - "-c"
+      - "sed -i 's/self._attr_code_format = CodeFormat.NUMBER/self._attr_code_format = None if code else CodeFormat.NUMBER;self._attr_code_arm_required = not code/g' /usr/src/homeassistant/homeassistant/components/envisalink/alarm_control_panel.py"
+
